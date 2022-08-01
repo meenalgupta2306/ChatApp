@@ -56,7 +56,7 @@ io.on('connection',(socket)=>{
         
         callback('Delivered',undefined)
     })
-
+  
 
     socket.on('sendLocation',(location, callback)=>{
         const user= getUser(socket.id)

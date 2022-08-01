@@ -35,7 +35,7 @@ input {
     outline: none
 }
 
-button {
+/* button {
     cursor: pointer;
     padding: 12px;
     background: #7C5CBF;
@@ -43,10 +43,20 @@ button {
     color: #fff;
     font-size: 16px;
     transition: background .3s ease
+} */
+button{
+    background: #7C5CBF;
+    cursor: pointer;
+    margin-top: 6px;
+    font-size: 11px;
+    height: 26px;
+}
+#send{
+    font-size: 20px;
 }
 
 button:hover {
-    background: #6b47b8
+    background: #ae90f1
 }
 
 button:disabled {
@@ -134,7 +144,7 @@ button:disabled {
 .compose form {
     display: flex;
     flex-grow: 1;
-    margin-right: 16px
+    gap: 5px;
 }
 
 .compose input {
@@ -145,9 +155,9 @@ button:disabled {
     flex-grow: 1
 }
 
-.compose button {
+/* .compose button {
     font-size: 14px
-}
+} */
 
 .room-title {
     font-weight: 400;
@@ -175,3 +185,20 @@ li{
 .reply{
     margin-left: 10px;;
 }
+
+.textarea {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    resize: both;
+    min-height: 40px;
+    line-height: 14px;
+    border: 1px solid #ccc;
+  font-family: inherit;
+  padding: 1px 6px;
+  }
+  
+  .textarea[contenteditable]:empty::before {
+    content: "Message";
+    color: gray;
+  }

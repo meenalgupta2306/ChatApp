@@ -2,7 +2,7 @@ const socket=io()
 
 //Elements
 const $messageForm= document.querySelector('#message-form')
-const $messageFormInput= document.querySelector('input')
+const $messageFormInput= document.querySelector('textarea')
 const $messageFormButton= document.querySelector('button')
 const $Location= document.querySelector('#send-location')
 const $messages= document.querySelector('#messages')
@@ -15,30 +15,43 @@ const sidebarTemplate=document.querySelector('#sidebar-template').innerHTML
 // Options
 const {username, room}=Qs.parse(location.search, {ignoreQueryPrefix: true})
 
+// Dealing with Textarea Height
+function calcHeight(value) {
+    let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+    // min-height + lines x line-height + padding + border
+    let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
+    return newHeight;
+  }
+  
+  let textarea = document.querySelector(".resize-ta");
+  textarea.addEventListener("keyup", () => {
+    textarea.style.height = calcHeight(textarea.value) + "px";
+  });
+
 const autoscroll=()=>{
     const element=$messages.lastElementChild
-    element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+    // element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
 
-    // // New message element
-    // const $newMessage = $messages.lastElementChild
+    // New message element
+    const $newMessage = $messages.lastElementChild
 
-    // // Height of the new message
-    // const newMessageStyles = getComputedStyle($newMessage)
-    // const newMessageMargin = parseInt(newMessageStyles.marginBottom)
-    // const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
+    // Height of the new message
+    const newMessageStyles = getComputedStyle($newMessage)
+    const newMessageMargin = parseInt(newMessageStyles.marginBottom)
+    const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
 
-    // // Visible height
-    // const visibleHeight = $messages.offsetHeight
+    // Visible height
+    const visibleHeight = $messages.offsetHeight
 
-    // // Height of messages container
-    // const containerHeight = $messages.scrollHeight
+    // Height of messages container
+    const containerHeight = $messages.scrollHeight
 
-    // // How far have I scrolled?
-    // const scrollOffset = ($messages.scrollTop + visibleHeight)*2
+    // How far have I scrolled?
+    const scrollOffset = ($messages.scrollTop + visibleHeight)*2
 
-    // if (containerHeight - newMessageHeight < scrollOffset) {
-    //     $messages.scrollTop = $messages.scrollHeight
-    // }
+    if (containerHeight - newMessageHeight < scrollOffset) {
+        $messages.scrollTop = $messages.scrollHeight
+    }
 }
 
 socket.on('message',(message)=>{
